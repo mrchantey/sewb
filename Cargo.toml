@@ -1,0 +1,12 @@
+[package]
+name = "sewb"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+beet.path = "../beet"
+forky = { path = "../forky", features = ["bevy"] }
+beetmash.path = "../beetmash"
+bevy = "0.14"
+bevy-inspector-egui = "0.26.0"
+anyhow = "1.0.89"
