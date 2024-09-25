@@ -4,5 +4,5 @@ default:
 	just --list --unsorted
 
 
-run:
-	cargo run --example recharge
+run example:
+	cargo run --example {{example}}

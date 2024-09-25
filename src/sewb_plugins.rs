@@ -1,5 +1,4 @@
-use crate::spawn::spawn_on_startup;
-use crate::spawn::SpawnOnStartup;
+use crate::prelude::*;
 use bevy::input::common_conditions::input_toggle_active;
 use bevy::prelude::*;
 use bevy_inspector_egui::quick::WorldInspectorPlugin;
@@ -12,10 +11,17 @@ impl Plugin for SewbPlugin {
 		app.add_systems(Startup, (setup, basics))
 			.add_systems(Update, close_on_esc)
 			.add_systems(Update, spawn_on_startup)
+			.add_systems(Update, render_connection)
+			.add_plugins(stats_plugin)
 			.add_plugins(
 				WorldInspectorPlugin::default()
 					.run_if(input_toggle_active(true, KeyCode::KeyI)),
 			);
+
+		let mut config_store =
+			app.world_mut().resource_mut::<GizmoConfigStore>();
+		let (config, _) = config_store.config_mut::<DefaultGizmoConfigGroup>();
+		config.line_width = 10.0;
 	}
 }
 
@@ -25,12 +31,6 @@ fn setup(mut commands: Commands) {
 			.looking_at(Vec3::ZERO, Vec3::Y),
 		..default()
 	}));
-
-	commands.spawn((
-		Name::new("Spawner"),
-		SpatialBundle::default(),
-		SpawnOnStartup::default(),
-	));
 }
 
 /// set up a simple 3D scene
