@@ -1,4 +1,4 @@
-use crate::stats::default_sewb_agent_stats;
+use crate::prelude::*;
 use bevy::prelude::*;
 use forky::prelude::Vec3Ext;
 use std::f32::consts::PI;
@@ -37,7 +37,7 @@ pub fn spawn_on_startup(
 				Name::new("Agent"),
 				default_sewb_agent_stats(TEAM_1),
 				PbrBundle {
-					mesh: meshes.add(Cylinder::default().mesh()),
+					mesh: meshes.add(Cylinder::new(0.1, 0.1).mesh()),
 					material: materials.add(Color::srgb(0.3, 0.5, 0.3)),
 					transform: Transform::from_translation(pos)
 						.with_rotation(Quat::from_rotation_x(PI)),
