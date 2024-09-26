@@ -359,6 +359,7 @@ dependencies = [
  "beet_ml",
  "beet_spatial",
  "beetmash",
+ "bevy",
 ]
 
 [[package]]
