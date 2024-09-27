@@ -24,6 +24,10 @@ fn setup(
 			.spawn((
 				Name::new(name),
 				Agent,
+				ForceBundle::default(),
+				SteerBundle::default(),
+				VelocityScalar(Vec3::new(1., 0., 1.)),
+				GroupSteerAgent,
 				PbrBundle {
 					mesh: meshes.add(Cylinder::new(0.1, 0.1).mesh()),
 					material: materials.add(StandardMaterial {
@@ -35,10 +39,6 @@ fn setup(
 						.with_rotation(Quat::from_rotation_x(PI)),
 					..default()
 				},
-				ForceBundle::default(),
-				SteerBundle::default(),
-				VelocityScalar(Vec3::new(0.1, 0., 0.1)),
-				GroupSteerAgent,
 			))
 			.with_children(|agent| {
 				agent.spawn((
@@ -48,7 +48,7 @@ fn setup(
 					Separate::<GroupSteerAgent>::new(1.),
 					Align::<GroupSteerAgent>::new(1.),
 					Cohere::<GroupSteerAgent>::new(1.),
-					Wander::new(0.01),
+					Wander::new(0.1),
 				));
 			});
 	}

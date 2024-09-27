@@ -7,6 +7,8 @@ fn_call_width = 60
 format_generated_files = false
 imports_granularity = "Item"
 group_imports = "One"
+wrap_comments = true
 imports_layout = "Vertical"
-overflow_delimited_expr = true
+# Foo, Bar, Baz {} if Baz has a new line, all are on a new line
+# overflow_delimited_expr = true
 use_field_init_shorthand = true

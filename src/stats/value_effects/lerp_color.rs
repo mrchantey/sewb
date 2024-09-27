@@ -1,6 +1,6 @@
 use crate::prelude::*;
 use beet::prelude::TargetAgent;
-use bevy::color::palettes::basic;
+use bevy::color::palettes::tailwind;
 use bevy::prelude::*;
 
 
@@ -17,8 +17,8 @@ pub struct LerpColor {
 impl Default for LerpColor {
 	fn default() -> Self {
 		Self {
-			from: basic::RED,
-			to: basic::BLUE,
+			from: tailwind::BLUE_500,
+			to: tailwind::RED_500,
 			// min: 0.,
 			// max: 1.,
 		}
