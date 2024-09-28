@@ -19,6 +19,7 @@ pub struct Collectable;
 pub fn collect(
 	mut commands: Commands,
 	registry: Res<SystemRegistry>,
+	mut values: Query<(&Name, &mut FloatValue)>,
 	collectors: Query<&Transform, With<Collecter>>,
 	collectables: Query<(Entity, &Transform), With<Collectable>>,
 ) {
@@ -30,6 +31,12 @@ pub fn collect(
 				.distance_squared(collectable.translation)
 				<= collectable_radius_sq
 			{
+				for (name, mut value) in values.iter_mut() {
+					if name.as_str() == "Wellness" {
+						value.0 += 0.1;
+					}
+				}
+
 				println!("Collected {:?}", entity);
 				commands
 					.run_system(registry[&SystemRegistryKey::SpawnCollectable]);

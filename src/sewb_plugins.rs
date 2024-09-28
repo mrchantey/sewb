@@ -29,7 +29,8 @@ impl Plugin for SewbPlugin {
 		.add_systems(Update, (
 			close_on_esc,
 			render_closest_connections,
-			target_nearest::<Collectable>.in_set(PreTickSet)
+			target_nearest::<Collectable>.in_set(PreTickSet),
+			set_text_float.in_set(PostTickSet)
 		))
 		.add_systems(PostUpdate, world_space_ui.after(TransformPropagate))
 			/*-*/;

@@ -22,7 +22,8 @@ fn setup(
 		commands
 			.run_system(system_registry[&SystemRegistryKey::SpawnCollectable]);
 	}
-
+	let mut text_entity: Entity = Entity::PLACEHOLDER;
+	let mut wellness_entity: Entity = Entity::PLACEHOLDER;
 
 	let agent_entity = commands
 		.spawn((
@@ -47,17 +48,16 @@ fn setup(
 		))
 		.with_children(|agent| {
 			let agent_entity = agent.parent_entity();
-			// agent.spawn((
-			// 	Name::new("Wellness"),
-			// 	FloatValue(0.),
-			// 	LerpColor::default(),
-			// 	ModifyOverTime::new(0.1),
-			// 	TargetAgent(agent_entity),
-			// ));
+			wellness_entity = agent
+				.spawn((
+					Name::new("Wellness"),
+					FloatValue(1.),
+					LerpColor::default(),
+					ModifyOverTime::new(-0.1),
+					TargetAgent(agent_entity),
+				))
+				.id();
 
-			// agent
-			// 	.spawn((Name::new("Behavior"), RunOnSpawn, Repeat::default()))
-			// 	.with_children(|parent| {
 			agent.spawn((
 				Name::new("Seek"),
 				Running,
@@ -67,14 +67,12 @@ fn setup(
 			));
 		})
 		.id();
-	// });
 
 	let label_text_style = TextStyle {
-		// font: asset_server.load("fonts/FiraMono-Medium.ttf"),
 		font_size: 25.0,
-		// color: ORANGE.into(),
 		..default()
 	};
+
 
 
 	commands
@@ -91,14 +89,30 @@ fn setup(
 			},
 		))
 		.with_children(|parent| {
-			parent.spawn(
-				TextBundle::from_section("Foo", label_text_style.clone())
+			text_entity = parent
+				.spawn(
+					TextBundle::from_sections(vec![
+						TextSection {
+							value: "wellness: ".into(),
+							style: label_text_style.clone(),
+						},
+						TextSection {
+							value: "0".into(),
+							style: label_text_style.clone(),
+						},
+					])
 					.with_style(Style {
 						position_type: PositionType::Absolute,
 						bottom: Val::ZERO,
 						..default()
 					})
 					.with_no_wrap(),
-			);
+				)
+				.id();
 		});
+
+	commands.entity(wellness_entity).insert(SetText {
+		entity: text_entity,
+		section: 1,
+	});
 }
