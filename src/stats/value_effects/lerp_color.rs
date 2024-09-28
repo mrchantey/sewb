@@ -17,7 +17,7 @@ pub struct LerpColor {
 impl Default for LerpColor {
 	fn default() -> Self {
 		Self {
-			to: tailwind::GREEN_500.into(),
+			to: tailwind::SKY_500.into(),
 			from: tailwind::RED_500.into(),
 			min: 0.,
 			max: 1.,

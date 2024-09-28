@@ -16,10 +16,16 @@ fn main() {
 
 // params to expose
 /// wellness decreases at amount/rate
-pub const DECREMENT_RATE: f32 = 1.;
-pub const DECREMENT_AMOUNT: f32 = 0.1;
+pub const WELLNESS_DECREMENT_RATE: f32 = 1.;
+pub const WELLNESS_DECREMENT_AMOUNT: f32 = 0.1;
+/// initial wellness value
+/// - starting value of 5 will decrease
+/// - starting value of 10 will increase
 pub const INITIAL_WELLNESS: f32 = 5.;
 
+pub const NUM_WELLNESS_ACTIONS: usize = 10;
+
+const FULL_WELLNESS: f32 = 10.;
 
 
 /// Every wellness point = 1 m/s max speed
@@ -39,9 +45,8 @@ fn setup(
 	mut meshes: ResMut<Assets<Mesh>>,
 	mut materials: ResMut<Assets<StandardMaterial>>,
 ) {
-	for _ in 0..10 {
-		commands
-			.run_system(system_registry[&SystemRegistryKey::SpawnCollectable]);
+	for _ in 0..NUM_WELLNESS_ACTIONS {
+		commands.run_system(system_registry.get(spawn_collectable));
 	}
 
 	let agent_entity = commands
@@ -75,11 +80,11 @@ fn setup(
 				Name::new("Wellness Value"),
 				Wellness,
 				FloatValue(INITIAL_WELLNESS),
-				LerpColor::default().with_min_max(0., 10.),
+				LerpColor::default().with_min_max(0., FULL_WELLNESS),
 				SetOverTime::new(
 					Op::Sub,
-					DECREMENT_AMOUNT,
-					Duration::from_secs_f32(DECREMENT_RATE),
+					WELLNESS_DECREMENT_AMOUNT,
+					Duration::from_secs_f32(WELLNESS_DECREMENT_RATE),
 				),
 				TargetAgent(agent_entity),
 			));
@@ -94,47 +99,13 @@ fn setup(
 		})
 		.id();
 
-	let label_text_style = TextStyle {
-		font_size: 25.0,
-		..default()
-	};
-
-
-
-	commands
-		.spawn((
-			Name::new("Label"),
-			TargetAgent(agent_entity),
-			WorldSpaceUi,
-			NodeBundle {
-				style: Style {
-					position_type: PositionType::Absolute,
-					..default()
-				},
-				..default()
-			},
-		))
-		.with_children(|parent| {
-			parent.spawn((
-				Name::new("Wellness Text"),
-				SetText { section: 1 },
-				Wellness,
-				TextBundle::from_sections(vec![
-					TextSection {
-						value: "wellness: ".into(),
-						style: label_text_style.clone(),
-					},
-					TextSection {
-						value: "0".into(),
-						style: label_text_style.clone(),
-					},
-				])
-				.with_style(Style {
-					position_type: PositionType::Absolute,
-					bottom: Val::ZERO,
-					..default()
-				})
-				.with_no_wrap(),
-			));
-		});
+	commands.spawn((
+		Name::new("Wellness Text"),
+		SetText { section: 1 },
+		Wellness,
+		world_space_ui_text(
+			agent_entity,
+			vec!["Wellness: ".into(), "0".into()],
+		),
+	));
 }

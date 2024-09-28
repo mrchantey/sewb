@@ -1,6 +1,9 @@
 pub mod color_material;
 #[allow(unused_imports)]
 pub use self::color_material::*;
+pub mod delay_visibility;
+#[allow(unused_imports)]
+pub use self::delay_visibility::*;
 pub mod render_connection;
 #[allow(unused_imports)]
 pub use self::render_connection::*;

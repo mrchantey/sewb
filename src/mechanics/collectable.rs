@@ -32,7 +32,7 @@ pub fn collect(
 			{
 				commands.trigger(SetFloatValue::<Wellness>::new(Op::Add, 0.1));
 				commands
-					.run_system(registry[&SystemRegistryKey::SpawnCollectable]);
+					.run_system(registry.get(spawn_collectable));
 				commands.entity(entity).despawn();
 			}
 		}
@@ -46,15 +46,29 @@ pub fn spawn_collectable(
 	mut materials: ResMut<Assets<StandardMaterial>>,
 ) {
 	let pos = Vec3::random_in_cube_signed().with_y(0.) * 20.;
-	commands.spawn((
-		Collectable,
-		Name::new("Collectable"),
-		PbrBundle {
-			mesh: meshes.add(cnst::COLLECTABLE_BOUNDS.mesh()),
-			material: materials.add(color_material(tailwind::AMBER_500)),
-			transform: Transform::from_translation(pos)
-				.with_rotation(Quat::from_rotation_x(PI)),
-			..default()
+	let agent = commands
+		.spawn((
+			Collectable,
+			Name::new("Collectable"),
+			PbrBundle {
+				mesh: meshes.add(cnst::COLLECTABLE_BOUNDS.mesh()),
+				material: materials.add(color_material(tailwind::EMERALD_500)),
+				transform: Transform::from_translation(pos)
+					.with_rotation(Quat::from_rotation_x(PI)),
+				..default()
+			},
+		))
+		.id();
+	let label = commands
+		.spawn((
+			Name::new("Collectable Label"),
+			world_space_ui_text(agent, vec!["A walk in the park".to_string()]),
+		))
+		.id();
+
+	commands.entity(agent).observe(
+		move |_: Trigger<OnRemove, Collectable>, mut commands: Commands| {
+			commands.entity(label).despawn();
 		},
-	));
+	);
 }

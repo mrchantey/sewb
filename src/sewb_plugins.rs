@@ -16,7 +16,8 @@ impl Plugin for SewbPlugin {
 		.add_plugins((
 			stats_plugin,
 			system_registry_plugin, 
-			collectable_plugin
+			collectable_plugin,
+			delay_visibility_plugin,
 		))
 		// .add_systems(Update, render_all_connections)
 		.add_plugins(BeetDefaultPlugins)
@@ -29,10 +30,13 @@ impl Plugin for SewbPlugin {
 		.add_systems(Update, (
 			get_float_value::<Wellness>,
 			close_on_esc,
+			screenshot_on_spacebar,
 			render_closest_connections,
 			target_nearest::<Collectable>.in_set(PreTickSet),
 		))
-		.add_systems(PostUpdate, world_space_ui.after(TransformPropagate))
+		.add_systems(PostUpdate, 
+			world_space_ui.after(TransformPropagate)
+		)
 		.observe(set_float_value::<Wellness>)
 		.observe(set_text_float::<Wellness>)
 			/*-*/;
