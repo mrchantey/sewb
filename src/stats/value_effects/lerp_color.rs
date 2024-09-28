@@ -8,43 +8,45 @@ use bevy::prelude::*;
 /// of the [StandardMaterial] belonging to the [TargetAgent]
 #[derive(Component)]
 pub struct LerpColor {
-	pub from: Srgba,
-	pub to: Srgba,
-	// pub min: f32,
-	// pub max: f32,
+	pub from: Hsla,
+	pub to: Hsla,
+	pub min: f32,
+	pub max: f32,
 }
 
 impl Default for LerpColor {
 	fn default() -> Self {
 		Self {
-			from: tailwind::BLUE_500,
-			to: tailwind::RED_500,
-			// min: 0.,
-			// max: 1.,
+			to: tailwind::GREEN_500.into(),
+			from: tailwind::RED_500.into(),
+			min: 0.,
+			max: 1.,
 		}
 	}
 }
 
 impl LerpColor {
-	pub fn new(from: Srgba, to: Srgba) -> Self { Self { from, to } }
-
-	/// Linearly interpolates between two sRGBA colors.
-	pub fn lerp(&self, t: f32) -> Srgba {
-		// Clamp t to the range [0.0, 1.0]
-		let t = t.clamp(0.0, 1.0);
-
-		// Interpolate each component
-		let red = self.from.red + t * (self.to.red - self.from.red);
-		let green = self.from.green + t * (self.to.green - self.from.green);
-		let blue = self.from.blue + t * (self.to.blue - self.from.blue);
-		let alpha = self.from.alpha + t * (self.to.alpha - self.from.alpha);
-
-		Srgba {
-			red,
-			green,
-			blue,
-			alpha,
+	pub fn new(from: Hsla, to: Hsla) -> Self {
+		Self {
+			from,
+			to,
+			..default()
 		}
+	}
+	pub fn with_min_max(mut self, min: f32, max: f32) -> Self {
+		self.min = min;
+		self.max = max;
+		self
+	}
+
+	pub fn lerp(&self, t: f32) -> Hsla {
+		// Clamp t to the min and max
+		let t = t.clamp(self.min, self.max);
+
+		// Normalize t to be between 0 and 1
+		let t = (t - self.min) / (self.max - self.min);
+
+		self.from.mix(&self.to, t)
 	}
 }
 

@@ -3,17 +3,16 @@ use bevy::prelude::*;
 
 #[derive(Component)]
 pub struct SetText {
-	pub entity: Entity,
 	pub section: usize,
 }
 
 
-pub fn set_text_float(
-	mut texts: Query<&mut Text>,
-	query: Query<(&SetText, &FloatValue), Changed<FloatValue>>,
+pub fn set_text_float<M: Component>(
+	trigger: Trigger<GetFloatValue<M>>,
+	mut texts: Query<(&mut Text, &SetText), With<M>>,
 ) {
-	for (set_text, float_value) in query.iter() {
-		let mut text = texts.get_mut(set_text.entity).unwrap();
-		text.sections[set_text.section].value = format!("{:.2}", float_value.0);
+	for (mut text, set_text) in texts.iter_mut() {
+		text.sections[set_text.section].value =
+			format!("{:.2}", *trigger.event().value);
 	}
 }

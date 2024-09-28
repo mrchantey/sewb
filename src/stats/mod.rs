@@ -9,4 +9,3 @@ pub mod stats_plugin;
 pub use self::stats_plugin::*;
 pub mod value_components;
 pub mod value_effects;
-pub mod value_modifiers;

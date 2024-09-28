@@ -23,16 +23,18 @@ impl Plugin for SewbPlugin {
 		.add_plugins(DebugGroupSteerPlugin::<GroupSteerAgent>::default())
 		.add_plugins(
 			WorldInspectorPlugin::default()
-			.run_if(input_toggle_active(true, KeyCode::KeyI)),
+			.run_if(input_toggle_active(false, KeyCode::KeyI)),
 		)
 		.add_systems(Startup, basics)
 		.add_systems(Update, (
+			get_float_value::<Wellness>,
 			close_on_esc,
 			render_closest_connections,
 			target_nearest::<Collectable>.in_set(PreTickSet),
-			set_text_float.in_set(PostTickSet)
 		))
 		.add_systems(PostUpdate, world_space_ui.after(TransformPropagate))
+		.observe(set_float_value::<Wellness>)
+		.observe(set_text_float::<Wellness>)
 			/*-*/;
 
 		let mut config_store =

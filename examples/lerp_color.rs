@@ -2,6 +2,7 @@ use beet::prelude::TargetAgent;
 use bevy::prelude::*;
 use sewb::prelude::*;
 use std::f32::consts::PI;
+use std::time::Duration;
 
 fn main() {
 	App::new()
@@ -32,7 +33,7 @@ fn setup(
 				Name::new("Wellness"),
 				FloatValue(0.),
 				LerpColor::default(),
-				ModifyOverTime::new(0.1),
+				SetOverTime::new(Op::Sub, 0.1, Duration::from_secs(1)),
 				TargetAgent(parent.parent_entity()),
 			));
 		});
