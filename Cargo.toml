@@ -1,12 +1,22 @@
 [package]
-name = "sewb"
-version = "0.1.0"
+name = "mrchantey_beetmash_sewb"
+version = "0.0.1-rc.2"
 edition = "2021"
+description = "Exploration of the Aboriginal SEWB framework with Beetmash"
+license = "MIT"
 
 [dependencies]
-beet.path = "../beet"
-forky = { path = "../forky", features = ["bevy"] }
-beetmash.path = "../beetmash"
+beet = { version = "0.0.4-rc.1", path = "../beet" }
+forky = { version = "0.2.0-rc.6", path = "../forky", features = ["bevy"] }
+beetmash = { version = "0.0.6-rc.5", path = "../beetmash" }
 bevy = "0.14"
-bevy-inspector-egui = "0.26.0"
+bevy-inspector-egui = { version = "0.26.0" }
 anyhow = "1.0.89"
+
+[[package.metadata.scene]]
+name = "wellbeing-inheritance"
+description = "Exploration of how wellbeing is inherited from our ancestors"
+thumb-text = "👨‍👩‍👦"
+path = "scenes/empty.json"
+app.js-url = "https://mrchantey.github.io/beetmash-apps/sewb/main.js"
+app.wasm-url = "https://mrchantey.github.io/beetmash-apps/sewb/main_bg.wasm"

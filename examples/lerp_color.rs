@@ -1,6 +1,6 @@
 use beet::prelude::TargetAgent;
 use bevy::prelude::*;
-use sewb::prelude::*;
+use mrchantey_beetmash_sewb::prelude::*;
 use std::f32::consts::PI;
 use std::time::Duration;
 

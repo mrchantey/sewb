@@ -1,13 +1,14 @@
 use beet::prelude::*;
+use beetmash::prelude::*;
 use bevy::color::palettes::tailwind;
 use bevy::prelude::*;
-use sewb::prelude::*;
+use mrchantey_beetmash_sewb::prelude::*;
 use std::f32::consts::PI;
 use std::time::Duration;
 
 fn main() {
 	App::new()
-		.add_plugins(DefaultPlugins)
+		.add_plugins(BeetmashDefaultPlugins::default())
 		.add_plugins(SewbPlugin)
 		.add_systems(Startup, setup)
 		.observe(wellness_is_speed)

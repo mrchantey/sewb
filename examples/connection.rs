@@ -1,7 +1,7 @@
 use beet::prelude::*;
 use bevy::prelude::*;
 use forky::prelude::Vec3Ext;
-use sewb::prelude::*;
+use mrchantey_beetmash_sewb::prelude::*;
 use std::f32::consts::PI;
 
 fn main() {
