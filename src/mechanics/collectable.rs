@@ -1,4 +1,5 @@
 use crate::prelude::*;
+use crate::utils::DespawnChain;
 use beetmash::prelude::BundlePlaceholder;
 use bevy::color::palettes::tailwind;
 use bevy::prelude::*;
@@ -54,18 +55,19 @@ pub fn spawn_collectable(mut commands: Commands) {
 			},
 			Transform::from_translation(pos)
 				.with_rotation(Quat::from_rotation_x(PI)),
+			Visibility::Hidden,
+			DelayVisibility::three_frames(),
 		))
 		.id();
-	let label = commands
-		.spawn((
-			Name::new("Collectable Label"),
-			world_space_ui_text(agent, vec!["A walk in the park".to_string()]),
-		))
-		.id();
+	commands.spawn((
+		Name::new("Collectable Label"),
+		world_space_ui_text(agent, vec!["A walk in the park".to_string()]),
+		DespawnChain(agent),
+	));
 
-	commands.entity(agent).observe(
-		move |_: Trigger<OnRemove, Collectable>, mut commands: Commands| {
-			commands.entity(label).despawn();
-		},
-	);
+	// commands.entity(agent).observe(
+	// 	move |_: Trigger<OnRemove, Collectable>, mut commands: Commands| {
+	// 		commands.entity(label).despawn();
+	// 	},
+	// );
 }

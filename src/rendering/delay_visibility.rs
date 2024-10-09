@@ -9,7 +9,7 @@ pub fn delay_visibility_plugin(app: &mut App) {
 
 
 
-#[derive(Component,Reflect)]
+#[derive(Component, Reflect)]
 #[reflect(Component)]
 pub struct DelayVisibility {
 	timer: Timer,
@@ -22,6 +22,7 @@ impl DelayVisibility {
 		}
 	}
 
+	pub fn three_frames() -> Self { Self::new(Duration::from_millis(16 * 3)) }
 	pub fn one_frame() -> Self { Self::new(Duration::from_secs(0)) }
 }
 

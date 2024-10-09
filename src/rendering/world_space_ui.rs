@@ -1,6 +1,8 @@
 use super::DelayVisibility;
 use beet::prelude::*;
+use beetmash::prelude::BundlePlaceholder;
 use bevy::prelude::*;
+use bevy::text::LineBreak;
 
 #[derive(Component, Reflect)]
 #[reflect(Component)]
@@ -43,25 +45,25 @@ pub fn world_space_ui_text(
 		..default()
 	};
 
-	let mut bundle =
-		TextBundle::from_sections(sections.into_iter().map(|text| {
-			TextSection {
-				value: text,
-				style: label_text_style.clone(),
-			}
-		}))
-		.with_style(Style {
-			position_type: PositionType::Absolute,
-			bottom: Val::ZERO,
-			..default()
-		})
-		.with_no_wrap();
-	bundle.visibility = Visibility::Hidden;
-
 	(
-		DelayVisibility::one_frame(),
+		DelayVisibility::three_frames(),
 		TargetAgent(target_agent),
 		WorldSpaceUi,
-		bundle,
+		BundlePlaceholder::Text {
+			sections: sections
+				.into_iter()
+				.map(|text| TextSection {
+					value: text,
+					style: label_text_style.clone(),
+				})
+				.collect(),
+			style: Style {
+				position_type: PositionType::Absolute,
+				bottom: Val::ZERO,
+				..default()
+			},
+			visibility: Visibility::Hidden,
+			linebreak: Some(LineBreak::NoWrap),
+		},
 	)
 }

@@ -15,7 +15,7 @@ fn main() -> Result<()> {
 	))
 	.add_ignored_resources(2)
 	.add_scene("basics", scenes::basics)
-	.add_scene("wellbeing_inheritance", scenes::wellbeing_inheritance)
+	.add_scene("wellbeing-inheritance", scenes::wellbeing_inheritance)
 	.export()?;
 
 	Ok(())

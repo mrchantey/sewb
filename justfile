@@ -7,7 +7,7 @@ publish:
 	cargo publish --allow-dirty --no-verify
 
 app:
-	just run app 
+	just run app scenes/basics.json scenes/wellbeing-inheritance.json
 
 run example *args:
 	cargo run --example {{example}} -- {{args}}

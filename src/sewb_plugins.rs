@@ -18,6 +18,7 @@ pub fn register_types(app:&mut App){
 	.register_type::<TargetNearest::<Collectable>>()
 	.register_type::<FloatValue>()
 	.register_type::<SetOverTime>()
+	.register_type::<DespawnChain>()
 	.register_type::<SetText>()
 	.register_type::<DelayVisibility>()
 	.register_type::<WorldSpaceUi>()
@@ -34,7 +35,7 @@ impl Plugin for SewbPlugin {
 			system_registry_plugin, 
 			collectable_plugin,
 			delay_visibility_plugin,
-			BeetmashDefaultPlugins::default(),
+			despawn_chain_plugin,
 			BeetmashDefaultPlugins::default(),
 			DefaultPlaceholderPlugin,
 			DefaultReplicatePlugin,
@@ -47,7 +48,6 @@ impl Plugin for SewbPlugin {
 		// 	WorldInspectorPlugin::default()
 		// 	.run_if(input_toggle_active(false, KeyCode::KeyI)),
 		// )
-		.add_systems(Startup, basics)
 		.add_systems(Update, (
 			get_float_value::<Wellness>,
 			close_on_esc,
