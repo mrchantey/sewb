@@ -7,6 +7,6 @@ pub use self::system_registry::*;
 pub mod target_nearest;
 #[allow(unused_imports)]
 pub use self::target_nearest::*;
-pub mod wellness;
+pub mod wellbeing;
 #[allow(unused_imports)]
-pub use self::wellness::*;
+pub use self::wellbeing::*;

@@ -26,7 +26,7 @@ fn setup(
 		))
 		.with_children(|parent| {
 			parent.spawn((
-				Name::new("Wellness"),
+				Name::new("Wellbeing"),
 				FloatValue(0.),
 				LerpColor::default(),
 				SetOverTime::new(Op::Sub, 0.1, Duration::from_secs(1)),

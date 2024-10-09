@@ -15,9 +15,13 @@ bevy = { git = "https://github.com/bevyengine/bevy", rev = "0c959f77007c29eead7f
 anyhow = "1.0.89"
 
 [[package.metadata.scene]]
+name = "basics"
+
+[[package.metadata.scene]]
 name = "wellbeing-inheritance"
 description = "Exploration of how wellbeing is inherited from our ancestors"
 thumb-text = "👨‍👩‍👦"
-path = "scenes/empty.json"
+path = "scenes/wellbeing-inheritance.json"
 app.js-url = "https://mrchantey.github.io/beetmash-apps/sewb/app.js"
 app.wasm-url = "https://mrchantey.github.io/beetmash-apps/sewb/app_bg.wasm"
+include = ["basics"]

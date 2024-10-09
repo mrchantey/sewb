@@ -12,7 +12,7 @@ pub struct SewbPlugin;
 
 pub fn register_types(app:&mut App){
 	app/*-*/
-	.register_type::<Wellness>()
+	.register_type::<Wellbeing>()
 	.register_type::<Collecter>()
 	.register_type::<Collectable>()
 	.register_type::<TargetNearest::<Collectable>>()
@@ -49,7 +49,7 @@ impl Plugin for SewbPlugin {
 		// 	.run_if(input_toggle_active(false, KeyCode::KeyI)),
 		// )
 		.add_systems(Update, (
-			get_float_value::<Wellness>,
+			get_float_value::<Wellbeing>,
 			close_on_esc,
 			render_closest_connections,
 			target_nearest::<Collectable>.in_set(PreTickSet),
@@ -57,9 +57,9 @@ impl Plugin for SewbPlugin {
 		.add_systems(PostUpdate, 
 			world_space_ui.after(TransformPropagate)
 		)
-		.observe(set_float_value::<Wellness>)
-		.observe(set_text_float::<Wellness>)
-		.observe(wellness_is_speed)
+		.observe(set_float_value::<Wellbeing>)
+		.observe(set_text_float::<Wellbeing>)
+		.observe(wellbeing_is_speed)
 			/*-*/;
 
 		let mut config_store =

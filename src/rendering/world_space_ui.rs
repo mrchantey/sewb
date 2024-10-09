@@ -15,7 +15,9 @@ pub fn world_space_ui(
 	camera: Query<(&Camera, &GlobalTransform), With<Camera3d>>,
 	mut labels: Query<(&mut Style, &TargetAgent), With<WorldSpaceUi>>,
 ) {
-	let (camera, camera_global_transform) = camera.single();
+	let Ok((camera, camera_global_transform)) = camera.get_single() else {
+		return;
+	};
 
 	for (mut style, agent) in labels.iter_mut() {
 		let Ok(transform) = transforms.get(**agent) else {

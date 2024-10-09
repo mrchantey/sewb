@@ -8,17 +8,17 @@ use std::time::Duration;
 
 
 // params to expose
-/// wellness decreases at amount/rate
-pub const WELLNESS_DECREMENT_RATE: f32 = 1.;
-pub const WELLNESS_DECREMENT_AMOUNT: f32 = 0.1;
-/// initial wellness value
+/// wellbeing decreases at amount/rate
+pub const WELLBEING_DECREMENT_RATE: f32 = 1.;
+pub const WELLBEING_DECREMENT_AMOUNT: f32 = 0.1;
+/// initial wellbeing value
 /// - starting value of 5 will decrease
 /// - starting value of 10 will increase
-pub const INITIAL_WELLNESS: f32 = 10.;
+pub const INITIAL_WELLBEING: f32 = 10.;
 
-pub const NUM_WELLNESS_ACTIONS: usize = 10;
+pub const NUM_WELLBEING_ACTIONS: usize = 10;
 
-const FULL_WELLNESS: f32 = 10.;
+const FULL_WELLBEING: f32 = 10.;
 
 
 
@@ -26,7 +26,7 @@ pub fn wellbeing_inheritance(
 	mut commands: Commands,
 	system_registry: Res<SystemRegistry>,
 ) {
-	for _ in 0..NUM_WELLNESS_ACTIONS {
+	for _ in 0..NUM_WELLBEING_ACTIONS {
 		commands.run_system(system_registry.get(spawn_collectable));
 	}
 
@@ -34,7 +34,7 @@ pub fn wellbeing_inheritance(
 		.spawn((
 			Name::new("Agent"),
 			Collecter,
-			Wellness,
+			Wellbeing,
 			ForceBundle::default(),
 			SteerBundle {
 				max_force: MaxForce(999.),
@@ -56,14 +56,14 @@ pub fn wellbeing_inheritance(
 		.with_children(|agent| {
 			let agent_entity = agent.parent_entity();
 			agent.spawn((
-				Name::new("Wellness Value"),
-				Wellness,
-				FloatValue(INITIAL_WELLNESS),
-				LerpColor::default().with_min_max(0., FULL_WELLNESS),
+				Name::new("Wellbeing Value"),
+				Wellbeing,
+				FloatValue(INITIAL_WELLBEING),
+				LerpColor::default().with_min_max(0., FULL_WELLBEING),
 				SetOverTime::new(
 					Op::Sub,
-					WELLNESS_DECREMENT_AMOUNT,
-					Duration::from_secs_f32(WELLNESS_DECREMENT_RATE),
+					WELLBEING_DECREMENT_AMOUNT,
+					Duration::from_secs_f32(WELLBEING_DECREMENT_RATE),
 				),
 				TargetAgent(agent_entity),
 			));
@@ -79,12 +79,12 @@ pub fn wellbeing_inheritance(
 		.id();
 
 	commands.spawn((
-		Name::new("Wellness Text"),
+		Name::new("Wellbeing Text"),
 		SetText { section: 1 },
-		Wellness,
+		Wellbeing,
 		world_space_ui_text(
 			agent_entity,
-			vec!["Wellness: ".into(), "0".into()],
+			vec!["Wellbeing: ".into(), "0".into()],
 		),
 	));
 }

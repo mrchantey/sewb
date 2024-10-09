@@ -34,7 +34,7 @@ pub fn collect(
 				.distance_squared(collectable.translation)
 				<= collectable_radius_sq
 			{
-				commands.trigger(SetFloatValue::<Wellness>::new(Op::Add, 0.1));
+				commands.trigger(SetFloatValue::<Wellbeing>::new(Op::Add, 0.1));
 				commands.run_system(registry.get(spawn_collectable));
 				commands.entity(entity).despawn();
 			}

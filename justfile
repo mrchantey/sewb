@@ -16,6 +16,7 @@ export-scenes:
 	just run export_scenes
 
 build *args:
+	just export-scenes
 	beetmash build \
 	--example app \
 	--release \
