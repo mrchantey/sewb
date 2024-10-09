@@ -20,13 +20,9 @@ fn setup(
 	commands
 		.spawn((
 			Name::new("Agent"),
-			PbrBundle {
-				mesh: meshes.add(Cylinder::new(0.1, 0.1).mesh()),
-				material: materials.add(Color::srgb(0.3, 0.5, 0.3)),
-				transform: Transform::default()
-					.with_rotation(Quat::from_rotation_x(PI)),
-				..default()
-			},
+			Mesh3d(meshes.add(Cylinder::new(0.1, 0.1).mesh())),
+			MeshMaterial3d(materials.add(Color::srgb(0.3, 0.5, 0.3))),
+			Transform::default().with_rotation(Quat::from_rotation_x(PI)),
 		))
 		.with_children(|parent| {
 			parent.spawn((

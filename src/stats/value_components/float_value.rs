@@ -3,14 +3,18 @@ use bevy::prelude::*;
 use std::marker::PhantomData;
 
 /// Multipurpose wrapper for a float value
-#[derive(Debug, Clone, PartialEq, PartialOrd, Component, Deref, DerefMut)]
+#[derive(
+	Debug, Clone, PartialEq, PartialOrd, Component, Deref, DerefMut, Reflect,
+)]
+#[reflect(Component)]
 pub struct FloatValue(pub f32);
 
 
 /// Global trigger emitted when a [`FloatValue`] with this marker changes
-#[derive(Debug, Clone, Event)]
+#[derive(Debug, Clone, Event, Reflect)]
 pub struct GetFloatValue<M> {
 	pub value: FloatValue,
+	#[reflect(ignore)]
 	phantom: PhantomData<M>,
 }
 
@@ -28,7 +32,7 @@ pub fn get_float_value<M: Component>(
 }
 
 /// Global trigger emitted to set every [`FloatValue`] with this marker
-#[derive(Debug, Clone, Event)]
+#[derive(Debug, Clone, Event, Reflect)]
 pub struct SetFloatValue<M> {
 	pub op: Op,
 	pub value: f32,

@@ -9,8 +9,9 @@ license = "MIT"
 beet = { version = "0.0.4-rc.1", path = "../beet" }
 forky = { version = "0.2.0-rc.6", path = "../forky", features = ["bevy"] }
 beetmash = { version = "0.0.6-rc.5", path = "../beetmash" }
-bevy = "0.14"
-bevy-inspector-egui = { version = "0.26.0" }
+# bevy = "0.14"
+bevy = { git = "https://github.com/bevyengine/bevy", rev = "0c959f77007c29eead7f902bddd3342a1ecbca20" }
+# bevy-inspector-egui = { version = "0.26.0" }
 anyhow = "1.0.89"
 
 [[package.metadata.scene]]
@@ -18,5 +19,5 @@ name = "wellbeing-inheritance"
 description = "Exploration of how wellbeing is inherited from our ancestors"
 thumb-text = "👨‍👩‍👦"
 path = "scenes/empty.json"
-app.js-url = "https://mrchantey.github.io/beetmash-apps/sewb/main.js"
-app.wasm-url = "https://mrchantey.github.io/beetmash-apps/sewb/main_bg.wasm"
+app.js-url = "https://mrchantey.github.io/beetmash-apps/sewb/app.js"
+app.wasm-url = "https://mrchantey.github.io/beetmash-apps/sewb/app_bg.wasm"

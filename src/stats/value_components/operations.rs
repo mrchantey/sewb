@@ -1,10 +1,12 @@
+use bevy::prelude::*;
+
 pub trait Operation<T> {
 	/// The operation to apply to the value.
 	fn apply(&self, lhs: &mut T, rhs: f32);
 }
 
 
-#[derive(Debug, Default, Clone)]
+#[derive(Debug, Default, Clone, Reflect)]
 pub enum Op {
 	#[default]
 	Add,

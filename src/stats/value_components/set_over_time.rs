@@ -5,7 +5,8 @@ use std::time::Duration;
 
 
 /// Modify a float value over time.
-#[derive(Debug, Clone, Component)]
+#[derive(Debug, Clone, Component,Reflect)]
+#[reflect(Component)]
 pub struct SetOverTime {
 	/// Amount to modify.
 	pub value: f32,

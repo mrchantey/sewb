@@ -1,7 +1,8 @@
 use crate::prelude::*;
 use bevy::prelude::*;
 
-#[derive(Component)]
+#[derive(Component,Reflect)]
+#[reflect(Component)]
 pub struct SetText {
 	pub section: usize,
 }

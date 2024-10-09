@@ -9,7 +9,8 @@ pub fn delay_visibility_plugin(app: &mut App) {
 
 
 
-#[derive(Component)]
+#[derive(Component,Reflect)]
+#[reflect(Component)]
 pub struct DelayVisibility {
 	timer: Timer,
 }

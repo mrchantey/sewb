@@ -11,6 +11,7 @@ use std::marker::PhantomData;
 #[derive(Debug, PartialEq, Component, Reflect)]
 #[reflect(Default, Component)]
 pub struct TargetNearest<T: Component> {
+	#[reflect(ignore)]
 	phantom: PhantomData<T>,
 }
 

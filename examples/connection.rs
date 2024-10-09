@@ -28,17 +28,14 @@ fn setup(
 				SteerBundle::default(),
 				VelocityScalar(Vec3::new(1., 0., 1.)),
 				GroupSteerAgent,
-				PbrBundle {
-					mesh: meshes.add(Cylinder::new(0.1, 0.1).mesh()),
-					material: materials.add(StandardMaterial {
-						base_color: Color::srgb(0.3, 0.5, 0.3),
-						unlit: true,
-						..default()
-					}),
-					transform: Transform::from_translation(pos)
-						.with_rotation(Quat::from_rotation_x(PI)),
+				Mesh3d(meshes.add(Cylinder::new(0.1, 0.1).mesh())),
+				MeshMaterial3d(materials.add(StandardMaterial {
+					base_color: Color::srgb(0.3, 0.5, 0.3),
+					unlit: true,
 					..default()
-				},
+				})),
+				Transform::from_translation(pos)
+					.with_rotation(Quat::from_rotation_x(PI)),
 			))
 			.with_children(|agent| {
 				agent.spawn((

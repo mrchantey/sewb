@@ -2,7 +2,8 @@ use super::DelayVisibility;
 use beet::prelude::*;
 use bevy::prelude::*;
 
-#[derive(Component)]
+#[derive(Component, Reflect)]
+#[reflect(Component)]
 pub struct WorldSpaceUi;
 
 

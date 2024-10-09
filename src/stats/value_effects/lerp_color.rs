@@ -6,7 +6,8 @@ use bevy::prelude::*;
 
 /// When the [FloatValue] changes, update the color
 /// of the [StandardMaterial] belonging to the [TargetAgent]
-#[derive(Component)]
+#[derive(Component, Reflect)]
+#[reflect(Component)]
 pub struct LerpColor {
 	pub from: Hsla,
 	pub to: Hsla,
